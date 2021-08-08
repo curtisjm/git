@@ -1,2 +1,13 @@
---- Git Course ---
+/// Git Course \\\
 
+--- Configuring Git ---
+- Set global name and email:
+	> git config --global user.name "Curtis Mitchell"
+	> git config --global user.email curtisjmitchell1@gmail.com
+- Edit global git settings:
+	> git config --global -e
+- Configure end of lines (windows has carriage return and line feed (\r\n) while macOS and linux just have line feed (\n)):
+	- For Windows:
+		> git config --global core.autocrlf true
+	- For macOS and Linux:
+		> git config --global core.autocrlf input 
