@@ -1,5 +1,7 @@
 /// Git Course \\\
 
+Cheat Sheet PDF: https://drive.google.com/file/d/1xFe3MTqKxGjb9PHBKLDwW6IAwupYU3RJ/view?usp=sharing
+
 --- Configuring Git ---
 - Set global name and email:
 	> git config --global user.name "Curtis Mitchell"
@@ -11,3 +13,15 @@
 		> git config --global core.autocrlf true
 	- For macOS and Linux:
 		> git config --global core.autocrlf input 
+
+- Show files in staging area:
+	> git ls-files
+
+- Add file to .gitignore at the same time as creating it:
+	> echo file.txt > .gitignore
+- Append to .gitignore:
+	> echo file1.txt >> .gitignore
+
+- Files committed before adding .gitignore will not be effected by adding them to the file
+- You have to remove them from the staging area:
+	> git rm --cached file1.js
