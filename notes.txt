@@ -8,11 +8,18 @@ Cheat Sheet PDF: https://drive.google.com/file/d/1xFe3MTqKxGjb9PHBKLDwW6IAwupYU3
 	> git config --global user.email curtisjmitchell1@gmail.com
 - Edit global git settings:
 	> git config --global -e
+- Set default diff tool:
+	> git config --global diff.tool vscode
+- Tell git how to launch VS Code:
+	> git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 - Configure end of lines (windows has carriage return and line feed (\r\n) while macOS and linux just have line feed (\n)):
 	- For Windows:
 		> git config --global core.autocrlf true
 	- For macOS and Linux:
 		> git config --global core.autocrlf input 
+
+- View changes with visual diff tool:
+	> git difftool
 
 - Show files in staging area:
 	> git ls-files
