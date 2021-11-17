@@ -40,6 +40,9 @@
 
 
 --- Browsing History ---
+- Show repo status (short version):
+	> git status -s
+
 - Show commit history (newest to oldest):
 	> git log
 	- Space to go to next page
@@ -151,4 +154,73 @@
 		> git tag -a v1.1 -m "My version 1.1"
 	- Delete a tag:
 		> git tag -d v1.1
+
+
+--- Branching ---
+- Create a new branch:
+	> git branch <branch name>
+	
+- Show a list of branches:
+	> git branch
+	- there is a * next to current branch
+
+- Change current branch:
+	> git switch <branch name>
+
+- Rename branch:
+	> git branch -m <old name> <new name>
+
+- View commits across all branches:
+	> git log --oneline --all
+
+- Delete a branch:
+	> git branch -d <branch name>
+
+- Create and switch to a branch at the same time:
+	> git switch -C <branch name>
+
+- Comparing branches (show all commits in one branch that are not in another):
+	> git log master..bugfix/signup-from
+	- Show changes instead:
+		> git diff master..bugfix/signup-form
+		- If you are already on master, you can do:
+			> git diff bugfix/signup-form
+		- Show only effected files:
+			--name-status
+
+- Stash changes (need to use if you make changes on a branch and don't commit before switching to another branch):
+	> git stash push -m "New tax rules."
+
+- List stashes:
+	> git stash list
+
+- Show changes in a stash:
+	> git stash show stash@{0}
+	- Can shorten by just using index number:
+		> git stash show 0
+
+- Apply stash to working directory:
+	> git stash apply 0
+
+- Remove stash (should do after applying):
+	> git stash drop 0
+
+- Remove all stashes:
+	> git stash clear
+
+-- Merging --
+- Fast-forward merge (if the branches have not diverged):
+	- Bring pointer of source branch forward after committing on another branch
+	- Remove extra branch
+
+- Three-way merge (if the branches have diverged):
+	- After secondary branch is ahead of source, make an additional commit on source branch (branches are diverged)
+	- When we merge, git creates a commit that combines the changes from the two branches
+		- Merge is based on three different commits: the common ancestor of our branches (before code), the tips of both branches (after code)
+
+- Use graph graph flag with log to better visualize branches:
+	> git log --oneline --all --graph
+
+- Merge changes from a another branch into current branch:
+	> git merge bugfix/signup-form
 
