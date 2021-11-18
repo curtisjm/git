@@ -212,6 +212,7 @@
 - Fast-forward merge (if the branches have not diverged):
 	- Bring pointer of source branch forward after committing on another branch
 	- Remove extra branch
+	- Does not create a new commit for the merge
 
 - Three-way merge (if the branches have diverged):
 	- After secondary branch is ahead of source, make an additional commit on source branch (branches are diverged)
@@ -223,4 +224,72 @@
 
 - Merge changes from a another branch into current branch:
 	> git merge bugfix/signup-form
+	- Force git to not use fast-forward merge (create a new commit for the merge):
+		> git merge --no-ff bugfix/signup-form
 
+- Disable fast-forward in current repo:
+	> git config ff no
+	- To apply to all repos:
+		> git config --global ff no
+
+- View list of branches that we have merged into current branch:
+	> git branch --merged
+
+- View list of branches that have not been merged into current branch:
+	> git branch --no-merged
+
+- If there are conflicts in the files that are being merged, Git will stop the merge process and you will have to resolve them manually:
+	- See paths of files that have conflicts:
+		> git status
+		- Look at "Unmerged paths:"
+	- Open with VS Code to resolve conflicts:
+		> code <path to file>
+	- Can also manually edit the file and select proper changes wile deleting the markers created by Git
+	- Shouldn't introduce new changes while merging
+	- Add the files to the staging area that we just resolved conflicts for:
+		> git add <path to file>
+
+- Abort a merge (if you have conflicts):
+	> git merge --abort
+
+- Undoing a faulty merge (only if you haven't shared that history with others):
+	- Move head pointer back to one commit before merge:
+		> git reset --hard HEAD~1
+			- Options when resetting commits:
+				--soft : head pointer points to a different snapshot, staging area and working directory are not effected
+				--mixed (default option): new snapshot goes to staging area, working directory not effected
+				--hard : new snapshot goes to working directory as well (state that we were in before merge)
+
+- Revert last commit (if history has been shared with others):
+	> git revert -m 1 HEAD
+		- "-m 1" means first parent
+		- "HEAD" is the target commit
+
+- Squash merging: use to create a single commit that is representative of all the changes in the branch
+	- Used to have a clean, linear history when we don't need to keep track of the full history
+	- Use squash flag with normal merge command:
+		> git merge --squash <branch name>
+		- Adds changes from the merge to the staging area
+		- Need to make the commit to represent all changes in the squashed branch
+			> git commit -m "Squashed merge"
+		- Force deletion of branch to avoid confusion:
+			> git branch -D <branch name>
+
+- Rebasing: Can change the base node of a branch to have the branch be based off of a more recent commit
+	- Allows us to have a linear path from branch to master
+	- Rewrites history, so only use for local branches and commits
+	- Change target / current branch's base to the last commit on master
+		> git rebase master
+			- If there is a conflict, resolve it manually and run the command:
+				> git rebase --continue	
+					- Can also use:
+						--skip
+						--abort
+					- Remove .orig files after resolving conflicts:
+						> git clean -fd
+
+- Cherry picking: Used to take specific commit from anther branch, and apply it on top of master:
+	> git cherry-pick <commit id>
+
+- Picking a file from another branch:
+	> git restore --source=<branch name> -- <file name>
