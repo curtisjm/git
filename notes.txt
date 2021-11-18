@@ -293,3 +293,51 @@
 
 - Picking a file from another branch:
 	> git restore --source=<branch name> -- <file name>
+
+
+--- Collaboration ---
+- Clone a repository:
+	> git clone <repo url>
+
+- Show a list of remote repositories:
+	> git remote
+		-v for more details
+
+- Show how our local and remote branches are diverging:
+	> git branch -vv
+
+- Download commits off of remote repository:
+	> git fetch <remote name (assumes origin if left out)> <branch name (optional)>
+		- Still need to merge remote changes into local branch:
+			> git merge origin/master
+
+- Pull command combines fetch and merge:
+	> git pull <remote name> <branch name>
+		- Will perform a three way merge if there are local changes that need to be merged with remote
+		--rebase : preserve linear history
+
+- Send commits to remote repository:
+	> git push <remote name (assumes origin)> <branch name (assumes current branch)>
+		- If there are changes made to remote that you don't have yet, a pull and merge is necessary first
+
+- Tags are only saved locally by default. You need to push them to remote manually:
+	> git push origin <tag name>
+	- Remove a tag from remote (does not remove locally):
+		> git push origin --delete <tag name>
+
+- Show remote tracking branches:
+	> git branch -r
+
+- Push a branch to remote:
+	> git push -u origin <branch name>
+		-u is short for set upstream
+	- Delete branch from remote (does not delete locally):
+		> git push -d origin <branch name>
+
+- You can create a branch on GitHub, then bring it to your local repository with:
+	> git fetch
+	- Still need to create the local branch to match the remote:
+		> git switch -C <branch name> origin/<branch name>
+
+- To remove a remote tracking branch that has already been removed from origin:
+	> git remote prune origin
